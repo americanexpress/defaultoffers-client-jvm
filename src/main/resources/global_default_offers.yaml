@@ -1,0 +1,322 @@
+swagger: '2.0'
+info:
+  description: This is the Offers API providing the default offers for partners across various applications in Acquisition portfolio
+  version: '1.0'
+  title: Global Default Offers API
+  contact:
+    name: Digital Acquistion Platform Excellence Team
+    email: DAPXServices@aexp.com
+basePath: /
+schemes:
+  - https
+paths:
+  /acquisition/digital/v1/offers/cards/default_offers:
+    get:
+      summary: Amex Acquisition API for identifying right default offers for the consumer
+      description: This API will accept partner name as a query string from Partners, identify default offers for the prospect / customer
+      operationId: fetchDefaultOffers
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: entry_point
+          in: query
+          description: Entry Point Value to fetch the data
+          required: true
+          type: string
+        - name: product_code
+          in: query
+          description: Unique product code to fetch the data
+          required: false
+          type: string
+        - name: content-type
+          in: header
+          description: Content Type Header
+          required: true
+          type: string
+          default: application/json
+        - name: Authorization
+          in: header
+          description: Authorization Header
+          required: true
+          type: string
+          default: Bearer <access_token value from Generate access token call above>
+        - name:  X-AMEX-API-KEY
+          in: header
+          description: APIGEE API KEY
+          required: true
+          type: string
+          default: <Provided by AMEX Apigee>
+        - name: message_type_id
+          in: header
+          description: value 5101 
+          required: true
+          type: string
+        - name: request_timestamp
+          in: header
+          description: Content Type Header
+          required: false
+          type: string
+        - name: request_id
+          in: header
+          description: 'Unique Request Identifier: identifies the client for tracking'
+          required: true
+          type: string
+        - name: client_id
+          in: header
+          description: 'Standard client id . Unique Client Identifier: identifies the client for tracking'
+          required: true
+          type: string
+        - name: country_code
+          in: header
+          description: specify the country code. ISO 3166 alpha-2 country code. e.g. GB,US etc.
+          required: true
+          type: string  
+      responses:
+        '201':
+          description: 'Successfully processed the request.[code :0 userMessage:Successfully processed the request.]'
+          schema:
+            $ref: '#/definitions/OffersResponse'
+          headers:
+            response_timestamp:
+              type: string
+              description: Time stamp for response
+            request_id:
+              type: string
+              description: Unique request id supplied by the application to track specific request
+            client_id:
+              type: string
+              description: 'Standard client id . Unique Client Identifier: identifies the client for tracking'
+            content-length:
+              type: string
+              description: Response content length
+            content-type:
+              type: string
+              description: Response content type
+            api_elapsed_time:
+              type: string
+              description: api elapsed time in ms
+        '400':
+          description: Bad request. Unrecoverable Error
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+          headers:
+            response_timestamp:
+              type: string
+              description: Time stamp for response
+            request_id:
+              type: string
+              description: Unique request id supplied by the application to track specific request
+            client_id:
+              type: string
+              description: 'Standard client id . Unique Client Identifier: identifies the client for tracking'
+            content-length:
+              type: string
+              description: Response content length
+            content-type:
+              type: string
+              description: Response content type
+            api_elapsed_time:
+              type: string
+              description: api elapsed time in ms
+        '404':
+          description: Resource not found. Unrecoverable error
+        '500':
+          description: Internal server error.Recoverable error please retry
+          schema:
+            $ref: '#/definitions/ErrorMessage'
+          headers:
+            response_timestamp:
+              type: string
+              description: Time stamp for response
+            request_id:
+              type: string
+              description: Unique request id supplied by the application to track specific request
+            client_id:
+              type: string
+              description: 'Standard client id . Unique Client Identifier: identifies the client for tracking'
+            content-length:
+              type: string
+              description: Response content length
+            content-type:
+              type: string
+              description: Response content type
+            api_elapsed_time:
+              type: string
+              description: api elapsed time in ms
+definitions:
+  OffersResponse:
+    type: object
+    properties:
+      refresh_interval:
+          type: string
+          description: Time to live for token in milliseconds; the amount of time a token will remain valid.  
+      offers:
+        type: array
+        description: holds list of offers
+        items:
+         $ref: '#/definitions/Offer'
+  ErrorMessage:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+        description: "Error Code \n Possible values \n\n 1410 : Errors related to request validation \n 1420  :Errors related to request parsing\n1440 :Client specific repository errors\n 1430 :Client specific security errors\n\n1510 :Offers API : API service errors\n\n 1540 : Offers API : API specific repository errors \n\n 1530  : Offers API : API specific security errors"
+      user_message:
+        type: string
+        description: User Message
+      link:
+        type: string
+      developer_message:
+        type: string
+        description: Detailed Message
+  Offer:
+    type: object
+    properties:
+      acquisition_offer_id:
+        type: string
+        description: 'unique offer identifier'
+      line_of_business:
+        type: string
+        description: 'Indicate line of business value would be CONSUMER OR SMALL_BUSINESS'  
+      product_name:
+        type: string
+        description: 'name of the product'
+      product_type:
+        type: string
+        description: type of the product example, CHARGE or LENDING
+      rewards:
+        type: array 
+        items:
+          $ref: '#/definitions/Reward'
+        description: holds the rewards information  
+      urls:
+       type: array
+       items:
+         $ref: '#/definitions/Url'
+         description: holds the urls information
+      fees:
+        type: array
+        items:
+          $ref: '#/definitions/Fee'
+        description: holds any fee related to product ex,annual fee of the product
+      rates:
+        type: array
+        description: holds rates array
+        items:
+          $ref: '#/definitions/Rate'
+      content_groups:
+        type: array
+        description: holds list of content groups with contents related to offer
+        items:
+          $ref: '#/definitions/ContentGroup' 
+  Rate:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'Name of rates information,ex. INTORDUCTORY_PURCHASE_APR,REGULAR_PURCHASE_APR, INTORDUCTORY_BALANCE_TRANSFER_APR,REGULAR_BALANCE_TRANSFER_APR,CASH_ADVANCE_APR,PENALTY_APR,PRIME_RATE'
+      value:
+        type: string
+        description: 'APR value, ex. 13.5%'
+      display_text:
+        type: string
+        description: 'APR text to be displayed on the page ex. 0.0% for 15 months'
+      duration:
+        type: string
+        description: 'Duration of the APR applicable,ex. 15 months'
+    description: This model represents rates information
+  Fee:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'Represents type of fee,INTORDUCTORY_ANNUAL_FEE,ANNUAL_FEE,NO_ANNUAL_FEE'
+      type:
+        type: string
+        description: 'It specifies the representation for example FIXED,PERCENTAGE'
+      value:
+        type: string
+        description: fee  amount ex. 95
+      currency:
+        type: string
+        description: type of currency like USD , RUPEE
+      display_text:
+        type: string
+        description: 'text to be displayed on the page ex. $0 for the first year, then $195'
+    description: Holds fee information
+  ContentGroup:
+    type: object
+    properties:
+      name:
+        type: string
+        description: name of content group
+      contents:
+        type: array
+        description: holds contents grouped together related to offer
+        items:
+          $ref: '#/definitions/Content'  
+  Content:
+    type: object
+    properties:
+      type:
+        type: string
+        description: type is product or offer content
+      title:
+        type: string
+        description: Headline for the content
+      disclosures:
+        type: array
+        description: list of disclousers
+        items:
+          $ref: '#/definitions/Disclosure'
+      display_text:
+        type: array
+        description: List of display text of a content
+        items:
+          $ref: '#/definitions/DisplayText'
+      sequence_order:
+        type: integer
+        format: int32
+        description: sequence of the content in the content group
+      image_url:
+        type: string
+        description: url of the image          
+    description: Holds offer content/product content information 
+  Url:
+    type: object
+    properties:
+      name:
+        type: string
+        description: 'It specifies name of the url, for example APPLY,CARD_ART,TERMS_AND_CONDITIONS'
+      value:
+        type: string
+        description: the complete url
+    description: Holds urls strings
+  Disclosure:
+    type: object
+    properties:
+      text:
+        type: string
+        description: A Disclosure text to be displayed
+    description: Holds card content disclosure
+  DisplayText:
+    type: object
+    properties:
+      text:
+        type: string
+        description: A text to be displayed
+    description: Holds display text information
+  Reward:
+    type: object
+    properties:
+      currency:
+        type: string
+        description: 'type of currency. Possible values: [MEMBERSHIP_REWARDS_POINTS, SKYMILES, USD]'
+      value:
+        type: integer
+        format: int32
+        description: Reward amount
+    description: Represents the reward associated with the offer. Can be cashback or loyalty currency.
