@@ -22,6 +22,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import lombok.experimental.UtilityClass;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -38,12 +39,8 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
  * 
  * @author jramio
  */
+@UtilityClass
 public class DefaultOffersUtil {
-
-	private DefaultOffersUtil() {
-		throw new IllegalStateException("Offer Utility Class");
-	}
-
 	/**
 	 * This method is the builder for Default offers request Headers
 	 * 
@@ -56,7 +53,7 @@ public class DefaultOffersUtil {
 		headers.add(DefaultOffersApiConstants.REQUEST_HEADER_REQUEST_ID, requestHeader.getRequestId());
 		headers.add(DefaultOffersApiConstants.REQUEST_HEADER_CLIENT_ID, requestHeader.getClientId());
 		headers.add(DefaultOffersApiConstants.REQUEST_HEADER_MESSAGE_TYPE_ID, requestHeader.getMessageTypeId());
-		headers.add(DefaultOffersApiConstants.REQUEST_HEADER_CONTENT_TYPE, DefaultOffersApiConstants.REQUESRT_HEADER_APPLICATION_JSON);
+		headers.add(DefaultOffersApiConstants.REQUEST_HEADER_CONTENT_TYPE, DefaultOffersApiConstants.REQUEST_HEADER_APPLICATION_JSON);
 		headers.add(DefaultOffersApiConstants.MAC_ID, config.getApiKey());
 		headers.add(DefaultOffersApiConstants.AUTHORIZATION, DefaultOffersApiConstants.BEARER + " " + config.getAccessToken());
 		return headers;
@@ -91,12 +88,10 @@ public class DefaultOffersUtil {
 	 */
 	public static <R> R generateResponse(TypeReference<R> responseObject, CloseableHttpResponse httpResponse)
 			throws IOException {
-		R response = null;
 		final InputStream content = httpResponse.getEntity().getContent();
 		ObjectMapper mapperForGetResponse = new ObjectMapper()
 				.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapperForGetResponse.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
-		response = mapperForGetResponse.readValue(content, responseObject);
-		return response;
+		return mapperForGetResponse.readValue(content, responseObject);
 	}
 }

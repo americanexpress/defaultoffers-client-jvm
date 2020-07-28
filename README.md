@@ -27,7 +27,7 @@ Default Offers API lets you provide American Express standard card offers to thi
     brew install maven
     ```
 - Clone repo
-- Go inside px-toa-java-sdk  and type
+- Go inside the repo folder and type
    ```
     $ mvn clean install
    ```

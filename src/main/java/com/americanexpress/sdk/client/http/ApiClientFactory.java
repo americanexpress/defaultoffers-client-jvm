@@ -13,6 +13,7 @@
  */
 package com.americanexpress.sdk.client.http;
 
+import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -27,6 +28,7 @@ import com.americanexpress.sdk.service.constants.DefaultOffersApiConstants;
  * 
  * @author jramio
  */
+@UtilityClass
 public class ApiClientFactory {
 
 	/**

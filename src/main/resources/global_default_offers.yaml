@@ -4,7 +4,7 @@ info:
   version: '1.0'
   title: Global Default Offers API
   contact:
-    name: Digital Acquistion Platform Excellence Team
+    name: Amex
     email: DAPXServices@aexp.com
 basePath: /
 schemes:
@@ -13,7 +13,7 @@ paths:
   /acquisition/digital/v1/offers/cards/default_offers:
     get:
       summary: Amex Acquisition API for identifying right default offers for the consumer
-      description: This API will accept partner name as a query string from Partners, identify default offers for the prospect / customer
+      description: The API will accept partner name as a query string from Partners, identify default offers for the prospect / customer
       operationId: fetchDefaultOffers
       consumes:
         - application/json
@@ -22,81 +22,81 @@ paths:
       parameters:
         - name: entry_point
           in: query
-          description: Entry Point Value to fetch the data
+          description: The Entry Point Value to fetch the data
           required: true
           type: string
         - name: product_code
           in: query
-          description: Unique product code to fetch the data
+          description: The unique product code to fetch the data
           required: false
           type: string
         - name: content-type
           in: header
-          description: Content Type Header
+          description: The Content Type Header
           required: true
           type: string
           default: application/json
         - name: Authorization
           in: header
-          description: Authorization Header
+          description: The Authorization Header
           required: true
           type: string
           default: Bearer <access_token value from Generate access token call above>
         - name:  X-AMEX-API-KEY
           in: header
-          description: APIGEE API KEY
+          description: The APIGEE API KEY
           required: true
           type: string
           default: <Provided by AMEX Apigee>
         - name: message_type_id
           in: header
-          description: value 5101 
+          description: The type of request (value 5101)
           required: true
           type: string
         - name: request_timestamp
           in: header
-          description: Content Type Header
+          description: The request timestamp
           required: false
           type: string
         - name: request_id
           in: header
-          description: 'Unique Request Identifier: identifies the client for tracking'
+          description: 'The Unique Request Identifier: identifies the client for tracking'
           required: true
           type: string
         - name: client_id
           in: header
-          description: 'Standard client id . Unique Client Identifier: identifies the client for tracking'
+          description: 'The standard client id. Unique Client Identifier: identifies the client for tracking'
           required: true
           type: string
         - name: country_code
           in: header
-          description: specify the country code. ISO 3166 alpha-2 country code. e.g. GB,US etc.
+          description: The country code. ISO 3166 alpha-2 country code. e.g. GB,US etc.
           required: true
-          type: string  
+          type: string
       responses:
-        '201':
-          description: 'Successfully processed the request.[code :0 userMessage:Successfully processed the request.]'
+        '200':
+          description: 'Successfully processed the request. [code:0 userMessage:Successfully processed the request.]'
           schema:
             $ref: '#/definitions/OffersResponse'
           headers:
             response_timestamp:
               type: string
-              description: Time stamp for response
+              description: The time stamp for response
             request_id:
               type: string
-              description: Unique request id supplied by the application to track specific request
+              description: The unique request id supplied by the application to track specific request
             client_id:
               type: string
-              description: 'Standard client id . Unique Client Identifier: identifies the client for tracking'
+              description: 'The standard client id. Unique Client Identifier: identifies the client for tracking'
             content-length:
               type: string
-              description: Response content length
+              description: The response content length
             content-type:
               type: string
-              description: Response content type
+              description: The response content type
             api_elapsed_time:
               type: string
-              description: api elapsed time in ms
+              description: The api elapsed time in ms
         '400':
           description: Bad request. Unrecoverable Error
           schema:
@@ -104,59 +104,59 @@ paths:
           headers:
             response_timestamp:
               type: string
-              description: Time stamp for response
+              description: The time stamp for response
             request_id:
               type: string
-              description: Unique request id supplied by the application to track specific request
+              description: The unique request id supplied by the application to track specific request
             client_id:
               type: string
-              description: 'Standard client id . Unique Client Identifier: identifies the client for tracking'
+              description: 'The Standard client id. Unique Client Identifier: identifies the client for tracking'
             content-length:
               type: string
-              description: Response content length
+              description: The response content length
             content-type:
               type: string
-              description: Response content type
+              description: The response content type
             api_elapsed_time:
               type: string
-              description: api elapsed time in ms
+              description: The api elapsed time in ms
         '404':
           description: Resource not found. Unrecoverable error
         '500':
-          description: Internal server error.Recoverable error please retry
+          description: Internal server error. Recoverable error please retry
           schema:
             $ref: '#/definitions/ErrorMessage'
           headers:
             response_timestamp:
               type: string
-              description: Time stamp for response
+              description: The time stamp for response
             request_id:
               type: string
-              description: Unique request id supplied by the application to track specific request
+              description: The unique request id supplied by the application to track specific request
             client_id:
               type: string
-              description: 'Standard client id . Unique Client Identifier: identifies the client for tracking'
+              description: 'The Standard client id. Unique Client Identifier: identifies the client for tracking'
             content-length:
               type: string
-              description: Response content length
+              description: The response content length
             content-type:
               type: string
-              description: Response content type
+              description: The response content type
             api_elapsed_time:
               type: string
-              description: api elapsed time in ms
+              description: The api elapsed time in ms
 definitions:
   OffersResponse:
     type: object
     properties:
       refresh_interval:
-          type: string
-          description: Time to live for token in milliseconds; the amount of time a token will remain valid.  
+        type: string
+        description: The Time to live for token in milliseconds; the amount of time a token will remain valid.
       offers:
         type: array
-        description: holds list of offers
+        description: This holds list of offers
         items:
-         $ref: '#/definitions/Offer'
+          $ref: '#/definitions/Offer'
   ErrorMessage:
     type: object
     properties:
@@ -166,157 +166,157 @@ definitions:
         description: "Error Code \n Possible values \n\n 1410 : Errors related to request validation \n 1420  :Errors related to request parsing\n1440 :Client specific repository errors\n 1430 :Client specific security errors\n\n1510 :Offers API : API service errors\n\n 1540 : Offers API : API specific repository errors \n\n 1530  : Offers API : API specific security errors"
       user_message:
         type: string
-        description: User Message
+        description: The User Message
       link:
         type: string
       developer_message:
         type: string
-        description: Detailed Message
+        description: The Detailed Message
   Offer:
     type: object
     properties:
       acquisition_offer_id:
         type: string
-        description: 'unique offer identifier'
+        description: 'The unique offer identifier'
       line_of_business:
         type: string
-        description: 'Indicate line of business value would be CONSUMER OR SMALL_BUSINESS'  
+        description: 'The Indicate line of business value would be CONSUMER OR SMALL_BUSINESS'
       product_name:
         type: string
-        description: 'name of the product'
+        description: 'The name of the product'
       product_type:
         type: string
-        description: type of the product example, CHARGE or LENDING
+        description: The type of the product example, CHARGE or LENDING
       rewards:
-        type: array 
+        type: array
         items:
           $ref: '#/definitions/Reward'
-        description: holds the rewards information  
+        description: This holds the rewards information
       urls:
-       type: array
-       items:
-         $ref: '#/definitions/Url'
-         description: holds the urls information
+        type: array
+        items:
+          $ref: '#/definitions/Url'
+          description: This holds the urls information
       fees:
         type: array
         items:
           $ref: '#/definitions/Fee'
-        description: holds any fee related to product ex,annual fee of the product
+        description: This holds any fee related to product ex,annual fee of the product
       rates:
         type: array
-        description: holds rates array
+        description: This holds rates array
         items:
           $ref: '#/definitions/Rate'
       content_groups:
         type: array
-        description: holds list of content groups with contents related to offer
+        description: This holds list of content groups with contents related to offer
         items:
-          $ref: '#/definitions/ContentGroup' 
+          $ref: '#/definitions/ContentGroup'
   Rate:
     type: object
     properties:
       name:
         type: string
-        description: 'Name of rates information,ex. INTORDUCTORY_PURCHASE_APR,REGULAR_PURCHASE_APR, INTORDUCTORY_BALANCE_TRANSFER_APR,REGULAR_BALANCE_TRANSFER_APR,CASH_ADVANCE_APR,PENALTY_APR,PRIME_RATE'
+        description: 'The name of rates information, ex. INTORDUCTORY_PURCHASE_APR, REGULAR_PURCHASE_APR, INTORDUCTORY_BALANCE_TRANSFER_APR, REGULAR_BALANCE_TRANSFER_APR, CASH_ADVANCE_APR, PENALTY_APR, PRIME_RATE'
       value:
         type: string
-        description: 'APR value, ex. 13.5%'
+        description: 'The APR value, ex. 13.5%'
       display_text:
         type: string
-        description: 'APR text to be displayed on the page ex. 0.0% for 15 months'
+        description: 'The APR text to be displayed on the page ex. 0.0% for 15 months'
       duration:
         type: string
-        description: 'Duration of the APR applicable,ex. 15 months'
+        description: ' The duration of the APR applicable, ex. 15 months'
     description: This model represents rates information
   Fee:
     type: object
     properties:
       name:
         type: string
-        description: 'Represents type of fee,INTORDUCTORY_ANNUAL_FEE,ANNUAL_FEE,NO_ANNUAL_FEE'
+        description: 'The Represents type of fee, INTORDUCTORY_ANNUAL_FEE, ANNUAL_FEE, NO_ANNUAL_FEE'
       type:
         type: string
-        description: 'It specifies the representation for example FIXED,PERCENTAGE'
+        description: 'The It specifies the representation for example FIXED, PERCENTAGE'
       value:
         type: string
-        description: fee  amount ex. 95
+        description: The fee  amount ex. 95
       currency:
         type: string
-        description: type of currency like USD , RUPEE
+        description: The type of currency like USD , RUPEE
       display_text:
         type: string
-        description: 'text to be displayed on the page ex. $0 for the first year, then $195'
-    description: Holds fee information
+        description: 'The text to be displayed on the page ex. $0 for the first year, then $195'
+    description: This holds fee information
   ContentGroup:
     type: object
     properties:
       name:
         type: string
-        description: name of content group
+        description: The name of content group
       contents:
         type: array
-        description: holds contents grouped together related to offer
+        description: This holds contents grouped together related to offer
         items:
-          $ref: '#/definitions/Content'  
+          $ref: '#/definitions/Content'
   Content:
     type: object
     properties:
       type:
         type: string
-        description: type is product or offer content
+        description: The type is product or offer content
       title:
         type: string
-        description: Headline for the content
+        description: The headline for the content
       disclosures:
         type: array
-        description: list of disclousers
+        description: The list of disclousers
         items:
           $ref: '#/definitions/Disclosure'
       display_text:
         type: array
-        description: List of display text of a content
+        description: The list of display text of a content
         items:
           $ref: '#/definitions/DisplayText'
       sequence_order:
         type: integer
         format: int32
-        description: sequence of the content in the content group
+        description: The sequence of the content in the content group
       image_url:
         type: string
-        description: url of the image          
-    description: Holds offer content/product content information 
+        description: The url of the image
+    description: This holds offer content/product content information
   Url:
     type: object
     properties:
       name:
         type: string
-        description: 'It specifies name of the url, for example APPLY,CARD_ART,TERMS_AND_CONDITIONS'
+        description: 'The name of the url, for example APPLY, CARD_ART, TERMS_AND_CONDITIONS'
       value:
         type: string
-        description: the complete url
-    description: Holds urls strings
+        description: The complete url
+    description: This holds urls strings
   Disclosure:
     type: object
     properties:
       text:
         type: string
-        description: A Disclosure text to be displayed
-    description: Holds card content disclosure
+        description: The Disclosure text to be displayed
+    description: This holds card content disclosure
   DisplayText:
     type: object
     properties:
       text:
         type: string
-        description: A text to be displayed
-    description: Holds display text information
+        description: The text to be displayed
+    description: This holds display text information
   Reward:
     type: object
     properties:
       currency:
         type: string
-        description: 'type of currency. Possible values: [MEMBERSHIP_REWARDS_POINTS, SKYMILES, USD]'
+        description: 'The type of currency. Possible values: [MEMBERSHIP_REWARDS_POINTS, SKYMILES, USD]'
       value:
         type: integer
         format: int32
-        description: Reward amount
-    description: Represents the reward associated with the offer. Can be cashback or loyalty currency.
+        description: The Reward amount
+    description: This represents the reward associated with the offer. Can be cashback or loyalty currency.

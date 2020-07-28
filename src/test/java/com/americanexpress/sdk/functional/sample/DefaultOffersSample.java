@@ -75,7 +75,7 @@ public class DefaultOffersSample {
                                 .getContextClassLoader().getResourceAsStream("defaultOffersRequestHeader.json"),
                         RequestHeader.class);
 
-                OffersResponse offersResponse = defaultOffersService.getDefaultOffers("hilpplgdin", requestHeader);
+                OffersResponse offersResponse = defaultOffersService.getDefaultOffers("defaultoffer", requestHeader);
 
                 System.out.println("Default Offer: " + offersResponse.toString());
             }
@@ -111,7 +111,6 @@ public class DefaultOffersSample {
     private DefaultOffersClient createDefaultOffersClient() throws IOException, CertificateException,
             NoSuchAlgorithmException, KeyStoreException, UnrecoverableKeyException, KeyManagementException {
         Map<String, String> sampleConfig = buildClientConfig();
-        DefaultOffersClient defaultOffersClient = null;
 
         InputStream inputStream = Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream(sampleConfig.get(DEVELOPER_PORTAL_SDK));
@@ -128,7 +127,7 @@ public class DefaultOffersSample {
                                 (aliases, socket) -> sampleConfig.get(OAUTH_KEYSTORE_ALIAS_PROPERTY))
                         .build());
 
-        defaultOffersClient = DefaultOffersClient.Builder
+        return DefaultOffersClient.Builder
                 .build(Config.builder().url(sampleConfig.get(OAUTH_OFFERS_API_ENDPOINT))
                         .apiKey(sampleConfig.get(OAUTH_API_KEY))
                         .apiSecret(sampleConfig.get(OAUTH_API_SECRET))
@@ -136,8 +135,6 @@ public class DefaultOffersSample {
                         .socketFactory(socketFactory)
                         .proxyConfig(new ProxyConfig(sampleConfig.get(PROXY_PROTOCOL), sampleConfig.get(PROXY_HOST),
                                 Integer.valueOf(sampleConfig.get(PROXY_PORT)))).build());
-
-        return defaultOffersClient;
     }
 
     /**

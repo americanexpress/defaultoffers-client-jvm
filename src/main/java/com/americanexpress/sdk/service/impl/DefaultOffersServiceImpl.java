@@ -64,7 +64,7 @@ public class DefaultOffersServiceImpl implements DefaultOffersService {
             throw new DefaultOffersRequestValidationError(MANDATORY_REQUEST_PARAMETER_ERROR);
         }
         try {
-            Map<String, String> responseHeaders = new HashMap<>(); //is this needed?
+            Map<String, String> responseHeaders = new HashMap<>();
             offersResponse = httpClient.getClientResource(
                     config.getUrl().concat(DEFAULT_OFFERS_GET_RESOURCE_PATH + "?eep=" + eep), headers,
                     new TypeReference<com.americanexpress.sdk.models.default_offers.OffersResponse>() {

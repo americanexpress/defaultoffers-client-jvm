@@ -13,11 +13,14 @@
  */
 package com.americanexpress.sdk.service.constants;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * This class holds the constants required for Offers API calls
  *
  * @author jramio
  */
+@UtilityClass
 public class DefaultOffersApiConstants {
 	/**
 	 * APIGEE related String
@@ -47,7 +50,7 @@ public class DefaultOffersApiConstants {
 	public static final String REQUEST_HEADER_REQUEST_ID = "request_id";
 	public static final String REQUEST_HEADER_MESSAGE_TYPE_ID = "message_type_id";
 	public static final String REQUEST_HEADER_CONTENT_TYPE = "content-type";
-	public static final String REQUESRT_HEADER_APPLICATION_JSON = "application/json";
+	public static final String REQUEST_HEADER_APPLICATION_JSON = "application/json";
 	public static final String DEFAULT_OFFERS_GET_RESOURCE_PATH = "/acquisition/digital/v1/offers/cards/default_offers";
 
 	/**
