@@ -24,7 +24,9 @@ import com.americanexpress.sdk.configuration.Config;
 import com.americanexpress.sdk.configuration.ProxyConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.http.NameValuePair;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +35,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.*;
 import java.security.cert.CertificateException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -62,7 +65,7 @@ public class DefaultOffersSample {
     public void getDefaultOffers () {
         try {
             /**
-             * if a valid access Token is already available in the cache, please build the
+             * If a valid access Token is already available in the cache, please build the
              * configuration with the available token. getting Authentication Token call is
              * not needed.
              */
@@ -71,11 +74,24 @@ public class DefaultOffersSample {
                 defaultOffersClient.setAccessToken(accessTokenResponse.getAccessToken());
                 System.out.println("AccessToken: " + accessTokenResponse.getAccessToken());
 
+                /**
+                 * The External Entry Point (EEP) will be used to fetch the default offer.
+                 * Add the EEP as a request parameter.
+                 */
+                ArrayList<NameValuePair> parameters = new ArrayList<>();
+                parameters.add(new BasicNameValuePair(REQUEST_PARAM_EEP, "defaultoffers"));
+
+                /**
+                 * Populate the request header
+                 */
                 RequestHeader requestHeader = objectMapper.readValue(Thread.currentThread()
                                 .getContextClassLoader().getResourceAsStream("defaultOffersRequestHeader.json"),
                         RequestHeader.class);
 
-                OffersResponse offersResponse = defaultOffersService.getDefaultOffers("defaultoffer", requestHeader);
+                /**
+                 * Send GET request to Default Offers API
+                 */
+                OffersResponse offersResponse = defaultOffersService.getDefaultOffers(parameters, requestHeader);
 
                 System.out.println("Default Offer: " + offersResponse.toString());
             }

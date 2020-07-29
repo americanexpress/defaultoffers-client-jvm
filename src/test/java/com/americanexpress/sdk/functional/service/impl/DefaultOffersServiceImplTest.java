@@ -13,6 +13,9 @@
  */
 package com.americanexpress.sdk.functional.service.impl;
 
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import com.americanexpress.sdk.exception.DefaultOffersException;
@@ -20,6 +23,8 @@ import com.americanexpress.sdk.models.default_offers.OffersResponse;
 import com.americanexpress.sdk.service.DefaultOffersService;
 import com.americanexpress.sdk.service.impl.DefaultOffersServiceImpl;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,16 +58,20 @@ public class DefaultOffersServiceImplTest {
 	}
 
 	@Test
-	public void testGetDefaultOffers() throws DefaultOffersException {
+	public void testGetDefaultOffers() throws DefaultOffersException, URISyntaxException {
 		EasyMock.expect(httpClient.getClientResource(
 				EasyMock.isA(String.class),
+				EasyMock.isA(List.class),
 				EasyMock.isA(MultivaluedMap.class),
 				(TypeReference<Object>) EasyMock.isA(Object.class),
 				EasyMock.isA(Map.class)))
 				.andReturn(offersResponse);
 		EasyMock.replay(httpClient);
 
-		OffersResponse result = defaultOffersService.getDefaultOffers("eep", requestHeader);
+		ArrayList<NameValuePair> parameters = new ArrayList<>();
+		parameters.add(new BasicNameValuePair("eep", "defaultoffers"));
+
+		OffersResponse result = defaultOffersService.getDefaultOffers(parameters, requestHeader);
 		assertNotNull(result);
 	}
 

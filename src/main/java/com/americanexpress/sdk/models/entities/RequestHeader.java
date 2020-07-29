@@ -45,4 +45,7 @@ public class RequestHeader implements Serializable {
 
 	/** Message type Id*/
 	private String messageTypeId;
+
+	/** Country code  */
+	private String countryCode;
 }

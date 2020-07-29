@@ -53,6 +53,7 @@ public class DefaultOffersUtil {
 		headers.add(DefaultOffersApiConstants.REQUEST_HEADER_REQUEST_ID, requestHeader.getRequestId());
 		headers.add(DefaultOffersApiConstants.REQUEST_HEADER_CLIENT_ID, requestHeader.getClientId());
 		headers.add(DefaultOffersApiConstants.REQUEST_HEADER_MESSAGE_TYPE_ID, requestHeader.getMessageTypeId());
+		headers.add(DefaultOffersApiConstants.REQUEST_HEADER_COUNTRY_CODE, requestHeader.getCountryCode());
 		headers.add(DefaultOffersApiConstants.REQUEST_HEADER_CONTENT_TYPE, DefaultOffersApiConstants.REQUEST_HEADER_APPLICATION_JSON);
 		headers.add(DefaultOffersApiConstants.MAC_ID, config.getApiKey());
 		headers.add(DefaultOffersApiConstants.AUTHORIZATION, DefaultOffersApiConstants.BEARER + " " + config.getAccessToken());

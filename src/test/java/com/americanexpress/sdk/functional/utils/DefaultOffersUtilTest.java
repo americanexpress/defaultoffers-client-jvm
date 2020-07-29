@@ -50,6 +50,7 @@ public class DefaultOffersUtilTest {
 		requestHeader.setRequestId("request id");
 		requestHeader.setClientId("client id");
 		requestHeader.setMessageTypeId("message type id");
+		requestHeader.setCountryCode("country code");
 		return requestHeader;
 	}
 }

@@ -15,6 +15,8 @@ package com.americanexpress.sdk.client.http;
 
 import static com.americanexpress.sdk.service.constants.DefaultOffersExceptionConstants.INTERNAL_API_EXCEPTION;
 
+import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.core.MultivaluedMap;
@@ -25,9 +27,11 @@ import com.americanexpress.sdk.exception.*;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 import com.americanexpress.sdk.exception.DefaultOffersException;
@@ -101,11 +105,13 @@ public class HttpClient {
 	 * @return <R> R
 	 * @throws DefaultOffersException
 	 */
-	public <R> R getClientResource(String apiUrl, MultivaluedMap<String, Object> headers,
-									   TypeReference<R> responseObject, Map<String, String> responseHeaders)
-			throws DefaultOffersException {
+	public <R> R getClientResource(String apiUrl, List<NameValuePair> parameters, MultivaluedMap<String, Object> headers,
+								   TypeReference<R> responseObject, Map<String, String> responseHeaders)
+			throws DefaultOffersException, URISyntaxException {
 		R response = null;
-		HttpGet getRequest = new HttpGet(apiUrl);
+		URIBuilder uriBuilder = new URIBuilder(apiUrl);
+		uriBuilder.addParameters(parameters);
+		HttpGet getRequest = new HttpGet(uriBuilder.build());
 		addHeaders(getRequest, headers);
 		try (CloseableHttpResponse httpResponse = client.execute(getRequest)) {
 			if (null != httpResponse.getEntity() && (httpResponse.getStatusLine().getStatusCode() == Response.Status.OK

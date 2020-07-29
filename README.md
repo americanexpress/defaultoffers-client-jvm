@@ -43,7 +43,7 @@ This sdk will support Java Version 8 or higher.
 
 ## Configuring SDK
 
-The SDK needs to be configured with OAuth, Mutual Auth and Payload encryption configurations. 
+The SDK needs to be configured with OAuth and Mutual Auth. 
 Please see the `createDefaultOffersClient()` method in DefaultOffersSample.java for a sample configuration snippet.
 
 ```java
@@ -115,14 +115,20 @@ Below is a sample code snippet to get Default Offers. Please refer to DefaultOff
 ```java
 
 DefaultOffersClient defaultOffersClient = createDefaultOffersClient();
-
 DefaultOffersService defaultOffersService = defaultOffersClient.getDefaultOffersService();
 
+// add External Entry Point (EEP) as a request parameter
+ArrayList<NameValuePair> parameters = new ArrayList<>();
+parameters.add(new BasicNameValuePair(REQUEST_PARAM_EEP, "external entry point"));
+
+
+// populate the request header
 RequestHeader requestHeader = objectMapper.readValue(Thread.currentThread()
                                 .getContextClassLoader().getResourceAsStream("defaultOffersRequestHeader.json"),
-                        RequestHeader.class);
+                                RequestHeader.class);
 
-OffersResponse offersResponse = defaultOffersService.getDefaultOffers("entry point", requestHeader);
+// send GET request to Default Offers API
+OffersResponse offersResponse = defaultOffersService.getDefaultOffers(parameters, requestHeader);
 
 ```
 A successful response will return an array of Default Offers.

@@ -24,6 +24,7 @@ import com.americanexpress.sdk.exception.DefaultOffersAuthenticationError;
 import com.americanexpress.sdk.models.default_offers.OffersResponse;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -41,6 +42,7 @@ import com.americanexpress.sdk.client.core.utils.DefaultOffersUtil;
 import com.americanexpress.sdk.client.http.HttpClient;
 import com.fasterxml.jackson.core.type.TypeReference;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +54,7 @@ public class HttpClientTest {
 	private HttpClient httpClient;
 	private HttpEntity httpEntity;
 	private String apiUrl;
+	private ArrayList<NameValuePair> parameters;
 	private MultivaluedMap<String, Object> headers;
 	private Map<String, String> responseHeaders;
 	private CloseableHttpResponse response;
@@ -63,6 +66,7 @@ public class HttpClientTest {
 		httpClient = new HttpClient(closeableHttpClient);
 		httpEntity = EasyMock.createNiceMock(HttpEntity.class);
 		apiUrl = "apiUrl";
+		parameters = new ArrayList<>();
 		headers = new MultivaluedHashMap<>();
 		responseHeaders = new HashMap<>();
 		response = EasyMock.createNiceMock(CloseableHttpResponse.class);
@@ -155,8 +159,8 @@ public class HttpClientTest {
 				.andReturn(new OffersResponse());
 		PowerMock.replay(DefaultOffersUtil.class);
 
-		OffersResponse result = httpClient.getClientResource(
-				apiUrl, headers, new TypeReference<OffersResponse>() {}, responseHeaders);
+		OffersResponse result = httpClient.getClientResource(apiUrl, parameters, headers,
+                new TypeReference<OffersResponse>() {}, responseHeaders);
 		assertNotNull(result);
 	}
 
@@ -169,8 +173,8 @@ public class HttpClientTest {
 				.andReturn("response string");
 		PowerMock.replay(DefaultOffersUtil.class);
 
-		httpClient.getClientResource(apiUrl, headers,
-				new TypeReference<OffersResponse>() {}, responseHeaders);
+		httpClient.getClientResource(apiUrl, parameters, headers,
+                new TypeReference<OffersResponse>() {}, responseHeaders);
 	}
 
 	@Test (expected = DefaultOffersRequestValidationError.class)
@@ -182,8 +186,8 @@ public class HttpClientTest {
 				.andReturn("response string");
 		PowerMock.replay(DefaultOffersUtil.class);
 
-		httpClient.getClientResource(apiUrl, headers,
-				new TypeReference<OffersResponse>() {}, responseHeaders);
+		httpClient.getClientResource(apiUrl, parameters, headers,
+                new TypeReference<OffersResponse>() {}, responseHeaders);
 	}
 
 	@Test (expected = DefaultOffersAuthenticationError.class)
@@ -195,7 +199,7 @@ public class HttpClientTest {
 				.andReturn("response string");
 		PowerMock.replay(DefaultOffersUtil.class);
 
-		httpClient.getClientResource(apiUrl, headers,
+		httpClient.getClientResource(apiUrl, parameters, headers,
 				new TypeReference<OffersResponse>() {}, responseHeaders);
 	}
 
@@ -208,7 +212,7 @@ public class HttpClientTest {
 				.andReturn("response string");
 		PowerMock.replay(DefaultOffersUtil.class);
 
-		httpClient.getClientResource(apiUrl, headers,
+		httpClient.getClientResource(apiUrl, parameters, headers,
 				new TypeReference<OffersResponse>() {}, responseHeaders);
 	}
 

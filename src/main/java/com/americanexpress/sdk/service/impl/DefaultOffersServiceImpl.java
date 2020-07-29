@@ -32,6 +32,7 @@ import com.americanexpress.sdk.configuration.Config;
 import com.americanexpress.sdk.exception.DefaultOffersException;
 import com.americanexpress.sdk.exception.DefaultOffersRequestValidationError;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.apache.http.NameValuePair;
 
 /**
  *
@@ -56,7 +57,8 @@ public class DefaultOffersServiceImpl implements DefaultOffersService {
      * @return {@link OffersResponse}
      * @throws DefaultOffersException
      */
-    public com.americanexpress.sdk.models.default_offers.OffersResponse getDefaultOffers(String eep, RequestHeader requestHeader) throws DefaultOffersException {
+    public OffersResponse getDefaultOffers(List<NameValuePair> parameters, RequestHeader requestHeader)
+            throws DefaultOffersException {
 
         OffersResponse offersResponse;
         MultivaluedMap<String, Object> headers = DefaultOffersUtil.buildHeaders(requestHeader, config);
@@ -66,7 +68,7 @@ public class DefaultOffersServiceImpl implements DefaultOffersService {
         try {
             Map<String, String> responseHeaders = new HashMap<>();
             offersResponse = httpClient.getClientResource(
-                    config.getUrl().concat(DEFAULT_OFFERS_GET_RESOURCE_PATH + "?eep=" + eep), headers,
+                    config.getUrl().concat(DEFAULT_OFFERS_GET_RESOURCE_PATH), parameters, headers,
                     new TypeReference<com.americanexpress.sdk.models.default_offers.OffersResponse>() {
                     }, responseHeaders);
         } catch (DefaultOffersResourceNotFoundError ex) {
