@@ -19,9 +19,6 @@ import com.americanexpress.sdk.exception.DefaultOffersException;
 import com.americanexpress.sdk.models.default_offers.OffersResponse;
 import com.americanexpress.sdk.models.entities.RequestHeader;
 import com.americanexpress.sdk.service.impl.DefaultOffersServiceImpl;
-import org.apache.http.NameValuePair;
-
-import java.util.List;
 
 /**
  *
@@ -37,7 +34,7 @@ public interface DefaultOffersService {
      * @return {@link OffersResponse}
      * @throws DefaultOffersException
      */
-    OffersResponse getDefaultOffers(List<NameValuePair> parameters, RequestHeader requestHeader)
+    OffersResponse getDefaultOffers(String eep, RequestHeader requestHeader)
             throws DefaultOffersException;
 
     class Builder {

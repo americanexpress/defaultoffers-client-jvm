@@ -117,18 +117,13 @@ Below is a sample code snippet to get Default Offers. Please refer to DefaultOff
 DefaultOffersClient defaultOffersClient = createDefaultOffersClient();
 DefaultOffersService defaultOffersService = defaultOffersClient.getDefaultOffersService();
 
-// add External Entry Point (EEP) as a request parameter
-ArrayList<NameValuePair> parameters = new ArrayList<>();
-parameters.add(new BasicNameValuePair(REQUEST_PARAM_EEP, "external entry point"));
-
-
 // populate the request header
 RequestHeader requestHeader = objectMapper.readValue(Thread.currentThread()
                                 .getContextClassLoader().getResourceAsStream("defaultOffersRequestHeader.json"),
                                 RequestHeader.class);
 
-// send GET request to Default Offers API
-OffersResponse offersResponse = defaultOffersService.getDefaultOffers(parameters, requestHeader);
+// send GET request to Default Offers API. The External Entry Point (EEP) will determine which default offer is returned.
+OffersResponse offersResponse = defaultOffersService.getDefaultOffers("defaultoffers", requestHeader);
 
 ```
 A successful response will return an array of Default Offers.

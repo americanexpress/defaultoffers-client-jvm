@@ -24,9 +24,7 @@ import com.americanexpress.sdk.configuration.Config;
 import com.americanexpress.sdk.configuration.ProxyConfig;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.http.NameValuePair;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.ssl.SSLContextBuilder;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +33,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.*;
 import java.security.cert.CertificateException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -74,12 +71,6 @@ public class DefaultOffersSample {
                 defaultOffersClient.setAccessToken(accessTokenResponse.getAccessToken());
                 System.out.println("AccessToken: " + accessTokenResponse.getAccessToken());
 
-                /**
-                 * The External Entry Point (EEP) will be used to fetch the default offer.
-                 * Add the EEP as a request parameter.
-                 */
-                ArrayList<NameValuePair> parameters = new ArrayList<>();
-                parameters.add(new BasicNameValuePair(REQUEST_PARAM_EEP, "defaultoffers"));
 
                 /**
                  * Populate the request header
@@ -89,9 +80,10 @@ public class DefaultOffersSample {
                         RequestHeader.class);
 
                 /**
-                 * Send GET request to Default Offers API
+                 * send GET request to Default Offers API.
+                 * The External Entry Point (EEP) will determine which default offer is returned.
                  */
-                OffersResponse offersResponse = defaultOffersService.getDefaultOffers(parameters, requestHeader);
+                OffersResponse offersResponse = defaultOffersService.getDefaultOffers("defaultoffers", requestHeader);
 
                 System.out.println("Default Offer: " + offersResponse.toString());
             }

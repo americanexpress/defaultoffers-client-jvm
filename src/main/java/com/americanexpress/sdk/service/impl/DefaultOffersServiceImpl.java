@@ -33,6 +33,7 @@ import com.americanexpress.sdk.exception.DefaultOffersException;
 import com.americanexpress.sdk.exception.DefaultOffersRequestValidationError;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 /**
  *
@@ -57,10 +58,14 @@ public class DefaultOffersServiceImpl implements DefaultOffersService {
      * @return {@link OffersResponse}
      * @throws DefaultOffersException
      */
-    public OffersResponse getDefaultOffers(List<NameValuePair> parameters, RequestHeader requestHeader)
+    public OffersResponse getDefaultOffers(String eep, RequestHeader requestHeader)
             throws DefaultOffersException {
 
         OffersResponse offersResponse;
+
+        ArrayList<NameValuePair> parameters = new ArrayList<>();
+        parameters.add(new BasicNameValuePair(REQUEST_PARAM_EEP, eep));
+
         MultivaluedMap<String, Object> headers = DefaultOffersUtil.buildHeaders(requestHeader, config);
         if (null == headers.get(AUTHORIZATION)) {
             throw new DefaultOffersRequestValidationError(MANDATORY_REQUEST_PARAMETER_ERROR);

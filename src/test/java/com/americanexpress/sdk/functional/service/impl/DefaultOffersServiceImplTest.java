@@ -68,10 +68,7 @@ public class DefaultOffersServiceImplTest {
 				.andReturn(offersResponse);
 		EasyMock.replay(httpClient);
 
-		ArrayList<NameValuePair> parameters = new ArrayList<>();
-		parameters.add(new BasicNameValuePair("eep", "defaultoffers"));
-
-		OffersResponse result = defaultOffersService.getDefaultOffers(parameters, requestHeader);
+		OffersResponse result = defaultOffersService.getDefaultOffers("eep", requestHeader);
 		assertNotNull(result);
 	}
 
