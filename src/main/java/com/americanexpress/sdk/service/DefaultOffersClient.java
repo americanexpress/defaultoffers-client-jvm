@@ -20,7 +20,6 @@ import com.americanexpress.sdk.service.impl.DefaultOffersClientImpl;
  * The Default Offers Client Interface handles all the API operations required
  * for creating the Default Offers Client
  *
- * @author jsheu
  */
 public interface DefaultOffersClient {
 

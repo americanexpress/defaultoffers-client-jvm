@@ -19,7 +19,6 @@ import com.americanexpress.sdk.models.default_offers.ErrorMessage;
 /**
  * The DefaultOffersException class handles how exceptions are thrown
  *
- * @author jramio
  */
 
 public class DefaultOffersException extends Exception {

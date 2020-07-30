@@ -36,8 +36,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 
 /**
  * The DefaultOffersUtil class contains utility methods for Default Offers SDK
- * 
- * @author jramio
+ *
  */
 @UtilityClass
 public class DefaultOffersUtil {

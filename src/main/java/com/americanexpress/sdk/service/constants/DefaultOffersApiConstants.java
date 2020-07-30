@@ -18,7 +18,6 @@ import lombok.experimental.UtilityClass;
 /**
  * This class holds the constants required for Offers API calls
  *
- * @author jramio
  */
 @UtilityClass
 public class DefaultOffersApiConstants {

@@ -25,7 +25,6 @@ import com.americanexpress.sdk.service.impl.DefaultOffersServiceImpl;
  * The Default Offer Service Interface handles all the API operations required for
  * Default Offers service
  *
- * @author jsheu
  */
 public interface DefaultOffersService {
     /**

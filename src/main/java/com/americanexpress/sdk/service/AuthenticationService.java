@@ -23,8 +23,7 @@ import com.americanexpress.sdk.service.impl.AuthenticationServiceImpl;
 /**
  * The AuthenticationService interface handles the OAuth Token Service
  * operations required for Default Offers service
- * 
- * @author jramio
+ *
  */
 public interface AuthenticationService {
 	/**

@@ -19,7 +19,6 @@ import lombok.experimental.UtilityClass;
  * This class holds the Constants of Defaults Offers Service Exception descriptions
  * and details
  *
- * @author jramio
  */
 @UtilityClass
 public class DefaultOffersExceptionConstants {

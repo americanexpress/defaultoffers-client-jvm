@@ -18,8 +18,7 @@ import lombok.Setter;
 
 /**
  * This Proxy configuration class holds the HTTP Proxy builder configuration
- * 
- * @author jramio
+ *
  */
 @Getter
 @Setter

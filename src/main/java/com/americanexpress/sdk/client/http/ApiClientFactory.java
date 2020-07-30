@@ -25,8 +25,7 @@ import com.americanexpress.sdk.service.constants.DefaultOffersApiConstants;
 
 /**
  * The ApiClientFactory class creates the Http Client
- * 
- * @author jramio
+ *
  */
 @UtilityClass
 public class ApiClientFactory {

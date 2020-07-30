@@ -39,8 +39,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 /**
  * The HttpClient class handles all the HTTP operations for Default Offers SDK
- * 
- * @author jramio
+ *
  */
 public class HttpClient {
 
