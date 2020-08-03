@@ -51,13 +51,13 @@ import com.fasterxml.jackson.core.type.TypeReference;
  */
 public class AuthenticationServiceImpl implements AuthenticationService {
 
-	private final HttpClient authClient;
+	private final HttpClient httpClient;
 
 	private final Config config;
 
-	public AuthenticationServiceImpl(final Config config, final HttpClient authClient) {
+	public AuthenticationServiceImpl(final Config config, final HttpClient httpClient) {
 		this.config = config;
-		this.authClient = authClient;
+		this.httpClient = httpClient;
 
 	}
 
@@ -74,7 +74,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 		}
 		String encodedBaseString = "Basic ".concat(Base64.getEncoder().encodeToString(
 				(config.getApiKey().concat(":").concat(config.getApiSecret())).getBytes(StandardCharsets.UTF_8)));
-
 		AccessTokenResponse accessTokenResponse = null;
 		MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
 		headers.add(AUTHORIZATION, encodedBaseString);
@@ -85,7 +84,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 			form.add(new BasicNameValuePair(AUTH_TOKEN_GRANT_TYPE, AUTH_TOKEN_GRANT_TYPE_VALUE));
 			UrlEncodedFormEntity entity = new UrlEncodedFormEntity(form, Consts.UTF_8);
 			Map<String, String> responseHeaders = new HashMap<>();
-			accessTokenResponse = authClient.postClientResource(entity, config.getUrl().concat(AUTH_TOKEN_API_PATH),
+			accessTokenResponse = httpClient.postClientResource(entity, config.getUrl().concat(AUTH_TOKEN_API_PATH),
 					headers, new TypeReference<AccessTokenResponse>() {
 					}, responseHeaders);
 		} catch (DefaultOffersException ex) {

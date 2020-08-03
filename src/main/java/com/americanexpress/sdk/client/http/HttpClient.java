@@ -98,6 +98,7 @@ public class HttpClient {
 	 * This method executes a GET request to an an API
 	 *
 	 * @param apiUrl
+	 * @param parameters
 	 * @param headers
 	 * @param responseObject
 	 * @param responseHeaders
@@ -162,6 +163,7 @@ public class HttpClient {
 	 * This method provides proper exception handling
 	 *
 	 * @param httpResponse
+	 * @return DefaultOffersException
 	 */
 	private DefaultOffersException handleHttpStatusCodes(CloseableHttpResponse httpResponse) {
 		String developerMessage = DefaultOffersUtil.getResponseString(httpResponse.getEntity());

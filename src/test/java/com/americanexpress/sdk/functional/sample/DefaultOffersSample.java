@@ -40,7 +40,6 @@ import java.util.Properties;
 import static com.americanexpress.sdk.service.constants.DefaultOffersApiConstants.*;
 
 public class DefaultOffersSample {
-
     DefaultOffersClient defaultOffersClient;
     DefaultOffersService defaultOffersService;
     ObjectMapper objectMapper;
@@ -70,21 +69,17 @@ public class DefaultOffersSample {
             if (null != accessTokenResponse && StringUtils.isNotEmpty(accessTokenResponse.getAccessToken())) {
                 defaultOffersClient.setAccessToken(accessTokenResponse.getAccessToken());
                 System.out.println("AccessToken: " + accessTokenResponse.getAccessToken());
-
-
                 /**
                  * Populate the request header
                  */
                 RequestHeader requestHeader = objectMapper.readValue(Thread.currentThread()
                                 .getContextClassLoader().getResourceAsStream("defaultOffersRequestHeader.json"),
                         RequestHeader.class);
-
                 /**
                  * send GET request to Default Offers API.
                  * The External Entry Point (EEP) will determine which default offer is returned.
                  */
                 OffersResponse offersResponse = defaultOffersService.getDefaultOffers("defaultoffers", requestHeader);
-
                 System.out.println("Default Offer: " + offersResponse.toString());
             }
         }

@@ -32,7 +32,7 @@ public interface AuthenticationService {
 	 * @return {@link Token}
 	 * @throws DefaultOffersException
 	 */
-	public AccessTokenResponse getAccessToken() throws DefaultOffersException;
+	AccessTokenResponse getAccessToken() throws DefaultOffersException;
 
 	class Builder {
 		public static AuthenticationService create(final Config config, final HttpClient authClient) {

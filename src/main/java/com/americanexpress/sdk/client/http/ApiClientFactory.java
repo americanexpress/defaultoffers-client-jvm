@@ -37,23 +37,17 @@ public class ApiClientFactory {
 	 * @return HttpClient
 	 */
 	public static HttpClient createHttpClient(Config config) {
-
 		HttpHost proxy = null;
 		SSLConnectionSocketFactory socketFactory = null;
-
 		if (null != config.getSocketFactory()) {
 			socketFactory = config.getSocketFactory();
 		}
 		if (null != config.getProxyConfig()) {
-
 			proxy = new HttpHost(config.getProxyConfig().getHost(), config.getProxyConfig().getPort(),
 					StringUtils.isEmpty(config.getProxyConfig().getProtocol()) ? DefaultOffersApiConstants.API_CLIENT_TYPE_HTTP
 							: config.getProxyConfig().getProtocol());
-
 		}
-
 		CloseableHttpClient client = HttpClients.custom().setProxy(proxy).setSSLSocketFactory(socketFactory).build();
-
 		return new HttpClient(client);
 	}
 

@@ -55,17 +55,16 @@ public class DefaultOffersServiceImpl implements DefaultOffersService {
     /**
      * Get the Default Offers for a given entry point
      *
+     * @param eep
+     * @param requestHeader
      * @return {@link OffersResponse}
      * @throws DefaultOffersException
      */
     public OffersResponse getDefaultOffers(String eep, RequestHeader requestHeader)
             throws DefaultOffersException {
-
         OffersResponse offersResponse;
-
         ArrayList<NameValuePair> parameters = new ArrayList<>();
         parameters.add(new BasicNameValuePair(REQUEST_PARAM_EEP, eep));
-
         MultivaluedMap<String, Object> headers = DefaultOffersUtil.buildHeaders(requestHeader, config);
         if (null == headers.get(AUTHORIZATION)) {
             throw new DefaultOffersRequestValidationError(MANDATORY_REQUEST_PARAMETER_ERROR);

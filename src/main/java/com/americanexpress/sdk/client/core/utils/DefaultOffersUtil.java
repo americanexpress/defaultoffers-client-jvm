@@ -19,9 +19,7 @@ import java.io.InputStream;
 import javax.ws.rs.core.MultivaluedHashMap;
 import javax.ws.rs.core.MultivaluedMap;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import lombok.experimental.UtilityClass;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -83,8 +81,6 @@ public class DefaultOffersUtil {
 	 * @param httpResponse
 	 * @return <R> R
 	 * @throws IOException
-	 * @throws JsonParseException
-	 * @throws JsonMappingException
 	 */
 	public static <R> R generateResponse(TypeReference<R> responseObject, CloseableHttpResponse httpResponse)
 			throws IOException {

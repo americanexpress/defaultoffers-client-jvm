@@ -29,14 +29,14 @@ public interface DefaultOffersClient {
      *
      * @return Instance of {@link AuthenticationService}
      */
-    public AuthenticationService getAuthenticationService();
+    AuthenticationService getAuthenticationService();
 
     /**
      * Creates a new Instance of Default Offers Service to help get the Default Offers
      *
      * @return Instance of {@link DefaultOffersService}
      */
-    public DefaultOffersService getDefaultOffersService();
+    DefaultOffersService getDefaultOffersService();
 
 
     /**
@@ -44,7 +44,7 @@ public interface DefaultOffersClient {
      *
      * @param accessToken
      */
-    public void setAccessToken(String accessToken);
+    void setAccessToken(String accessToken);
 
     class Builder {
         public static DefaultOffersClient build(final Config config) {

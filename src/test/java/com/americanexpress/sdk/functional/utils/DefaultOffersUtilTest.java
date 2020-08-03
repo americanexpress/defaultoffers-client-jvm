@@ -34,7 +34,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @PrepareForTest({HttpEntity.class, ObjectMapper.class, ApiClientFactory.class, JWEHeader.class})
 public class DefaultOffersUtilTest {
 
-
 	@Test
 	public void testBuildHeaders() {
 		Config config = org.easymock.EasyMock.createMock(Config.class);
@@ -43,7 +42,6 @@ public class DefaultOffersUtilTest {
 		EasyMock.replay(config);
 		assertNotNull(DefaultOffersUtil.buildHeaders(buildRequestHeader(), config));
 	}
-
 
 	private RequestHeader buildRequestHeader() {
 		RequestHeader requestHeader = new RequestHeader();
