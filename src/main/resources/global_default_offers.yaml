@@ -1,10 +1,10 @@
 swagger: '2.0'
 info:
-  description: The AMEX Default Offers API provides the capability for a Partner to request standard card offer(s) eligible to new prospects and existing card members. It provides an interface for third-party systems to integrate with American Express internal APIs. Default Offers API allows the ability for card offers to be configured for the Partner within the AMEX downstream system, as it retrieves the offers based on Partner Identification (External Entry Point). This illustrates the Default Offers API, providing the standard offers for AMEX Card Acquisition Partners.
+  description: The AMEX Default Offers API provides the capability for a Partner to request standard card offer(s) eligible to new prospects and existing card members. It provides an interface for third-party systems to integrate with American Express internal APIs. Default Offers API allows the ability for card offers to be configured for the Partner within the AMEX downstream system, as it retrieves the offers based on External Entry Point (EEP). This illustrates the Default Offers API, providing the standard offers for AMEX Card Acquisition Partners.
   version: '1.0'
   title: Global Default Offers API
   contact:
-    name: Amex
+    name: AMEX
     email: DAPXServices@aexp.com
 basePath: /
 schemes:
@@ -12,8 +12,8 @@ schemes:
 paths:
   /acquisition/digital/v1/offers/cards/default_offers:
     get:
-      summary: AMEX Acquisition API for identifying right default offers for the consumer
-      description: The API will accept partner name as a query string from Partners, identify default offers for the prospect / customer
+      summary: AMEX Acquisition API for identifying the right default offers for the consumer
+      description: The API will accept an External Entry Point (EEP) as a query string from Partners and identify default offers for the prospect / customer
       operationId: fetchDefaultOffers
       consumes:
         - application/json
@@ -44,10 +44,10 @@ paths:
           default: Bearer <access_token value from Generate access token call above>
         - name: X-AMEX-API-KEY
           in: header
-          description: The Apigee API Key.
+          description: The AMEX API Key.
           required: true
           type: string
-          default: <Provided by AMEX Apigee>
+          default: <Provided by AMEX>
         - name: message_type_id
           in: header
           description: The type of request.

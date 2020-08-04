@@ -1,8 +1,10 @@
 # Default Offers Java SDK
-Default Offers API lets you provide American Express standard card offers to third parties in real time.
-​
+The Default Offers API allows a Partner to request AMEX's standard card offers and display them to prospective customers.
 
-</br></br>This Java implementation allows Amex partners to integrate seamlessly to Default Offers and reduces complexity out of coding service layer integration to Default Offers API. The Default Offers Java SDK is a simple wrapper to the API. It assumes you have already set up your credentials with American Express and have your certs prepared. 
+​
+</br></br>This Java SDK allows AMEX partners to integrate seamlessly to the Default Offers Service 
+and reduces the complexity of coding service layer integration with the Default Offers API. 
+It assumes you have already set up your credentials with American Express and have your certs prepared. 
 </br></br>
 
 ## Table of Contents
@@ -14,6 +16,7 @@ Default Offers API lets you provide American Express standard card offers to thi
 - [Getting Default Offers](#getting-default-offers)
 - [Error Handling](#error-handling)
 - [Samples](#running-samples)
+- [Contributing](#contributing)
 - [License](#license)
 - [Code of Conduct](#code-of-conduct)
 
@@ -173,6 +176,18 @@ proxy.protocol=http                                 // Protocol Client uses to c
 proxy.host=proxy.example.com                        // Proxy host
 proxy.port=8080                                     // Proxy port
 ```
+
+<br/>
+
+## Contributing
+
+We welcome Your interest in the American Express Open Source Community on Github. Any Contributor to
+any Open Source Project managed by the American Express Open Source Community must accept and sign
+an Agreement indicating agreement to the terms below. Except for the rights granted in this 
+Agreement to American Express and to recipients of software distributed by American Express, You
+reserve all right, title, and interest, if any, in and to Your Contributions. Please
+[fill out the Agreement](https://cla-assistant.io/americanexpress/defaultoffers-client-jvm).
+
 
 <br/>
 
