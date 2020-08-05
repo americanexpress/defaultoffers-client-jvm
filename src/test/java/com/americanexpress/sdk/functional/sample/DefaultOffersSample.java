@@ -79,7 +79,7 @@ public class DefaultOffersSample {
                  * send GET request to Default Offers API.
                  * The External Entry Point (EEP) will determine which default offer is returned.
                  */
-                OffersResponse offersResponse = defaultOffersService.getDefaultOffers("defaultoffers", requestHeader);
+                OffersResponse offersResponse = defaultOffersService.getDefaultOffers("defaultoffer", requestHeader);
                 System.out.println("Default Offer: " + offersResponse.toString());
             }
         }
