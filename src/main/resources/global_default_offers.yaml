@@ -1,8 +1,8 @@
 swagger: '2.0'
 info:
-  description: The AMEX Default Offers API provides the capability for a Partner to request standard card offer(s) eligible to new prospects and existing card members. It provides an interface for third-party systems to integrate with American Express internal APIs. Default Offers API allows the ability for card offers to be configured for the Partner within the AMEX downstream system, as it retrieves the offers based on External Entry Point (EEP). This illustrates the Default Offers API, providing the standard offers for AMEX Card Acquisition Partners.
+  description: The AMEX Default Offers API provides the capability for Partners to request non-targeted offer(s) eligible to new Prospects and existing Card Members. It provides an interface for third-party systems to integrate with American Express internal APIs. Default Offers API allows the ability for Card offers to be configured for the Partner within the AMEX downstream system, as it retrieves the offers based on the External Entry Point.
   version: '1.0'
-  title: Global Default Offers API
+  title: AMEX Default Offers
   contact:
     name: AMEX
     email: DAPXServices@aexp.com
@@ -13,7 +13,7 @@ paths:
   /acquisition/digital/v1/offers/cards/default_offers:
     get:
       summary: AMEX Acquisition API for identifying the right default offers for the consumer
-      description: The API will accept an External Entry Point (EEP) as a query string from Partners and identify default offers for the prospect / customer
+      description: The API will accept an External Entry Point (EEP) as a query string from Partners and identify default offers for the prospect/customer
       operationId: fetchDefaultOffers
       consumes:
         - application/json
@@ -44,7 +44,7 @@ paths:
           default: Bearer <access_token value from Generate access token call above>
         - name: X-AMEX-API-KEY
           in: header
-          description: The AMEX API Key.
+          description: The Amex API Key.
           required: true
           type: string
           default: <Provided by AMEX>
@@ -73,7 +73,6 @@ paths:
           description: Specifies the country code. The format is based on the ISO 3166 two-letter (alpha-2) Country Codes. e.g., GB, US
           required: true
           type: string
-
       responses:
         '200':
           description: Successfully processed the request. [code:0 userMessage:Successfully processed the request.]
@@ -88,7 +87,7 @@ paths:
               description: The unique request ID supplied by the application to track the request.
             client_id:
               type: string
-              description: The unique Client ID identifies the Client for tracking.
+              description: The unique Client ID to identify the Client for tracking.
             content-length:
               type: string
               description: The response content length.
@@ -99,7 +98,7 @@ paths:
               type: string
               description: The API elapsed time in milliseconds.
         '400':
-          description: Bad request. Unrecoverable Error
+          description: Bad request. Unrecoverable error
           schema:
             $ref: '#/definitions/ErrorMessage'
           headers:
@@ -111,7 +110,7 @@ paths:
               description: The unique request ID supplied by the application to track the request.
             client_id:
               type: string
-              description: The unique Client identifier identifies the Client for tracking.
+              description: The unique Client identifier used to identify the Client for tracking.
             content-length:
               type: string
               description: The response content length.
@@ -124,7 +123,7 @@ paths:
         '404':
           description: Resource not found. Unrecoverable error.
         '500':
-          description: Internal server error. Recoverable error please retry.
+          description: Internal server error. Recoverable error, please retry.
           schema:
             $ref: '#/definitions/ErrorMessage'
           headers:
@@ -136,7 +135,7 @@ paths:
               description: The unique request ID supplied by the application to track the request.
             client_id:
               type: string
-              description: The unique Client identifier identifies the Client for tracking.
+              description: The unique Client identifier to identify the Client for tracking.
             content-length:
               type: string
               description: The response content length.
@@ -146,14 +145,13 @@ paths:
             api_elapsed_time:
               type: string
               description: The API elapsed time in milliseconds.
-
 definitions:
   OffersResponse:
     type: object
     properties:
       refresh_interval:
         type: string
-        description: The time to live for the token in milliseconds; the amount of time a token will remain valid.
+        description: The time to live for the token in milliseconds. The amount of time a token will remain valid.
       offers:
         type: array
         description: This holds a list of offers.
@@ -171,6 +169,7 @@ definitions:
         description: The user message.
       link:
         type: string
+        description: The link documenting the error.
       developer_message:
         type: string
         description: The detailed message.
@@ -188,7 +187,7 @@ definitions:
         description: The name of the product.
       product_type:
         type: string
-        description: The type of the product. e.g. CHARGE or LENDING
+        description: The type of product. e.g. CHARGE or LENDING
       rewards:
         type: array
         items:
@@ -203,7 +202,7 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/Fee'
-        description: This holds any fee related to the product. e.g. annual fee of the product
+        description: This holds any fees related to the product. e.g. annual fee of the product
       rates:
         type: array
         description: This holds an array of rates
@@ -211,7 +210,7 @@ definitions:
           $ref: '#/definitions/Rate'
       content_groups:
         type: array
-        description: This holds a list of content groups with contents related to the offer.
+        description: This holds a list of content groups with content related to the offer.
         items:
           $ref: '#/definitions/ContentGroup'
   Rate:
@@ -228,14 +227,14 @@ definitions:
         description: The APR text to be displayed on the page. e.g. 0.0% for 15 months
       duration:
         type: string
-        description: 'The duration of the applicable APR. e.g. 15 months'
+        description: The duration of the applicable APR. e.g. 15 months
     description: This model represents the rates information.
   Fee:
     type: object
     properties:
       name:
         type: string
-        description: Represents the type of fee. e.g. INTORDUCTORY_ANNUAL_FEE, ANNUAL_FEE, NO_ANNUAL_FEE
+        description: 'Represents the type of fee. e.g. INTORDUCTORY_ANNUAL_FEE, ANNUAL_FEE, NO_ANNUAL_FEE'
       type:
         type: string
         description: 'Specifies the representation. e.g. FIXED, PERCENTAGE'
@@ -247,7 +246,7 @@ definitions:
         description: 'The type of currency. e.g. USD, RUPEE'
       display_text:
         type: string
-        description: The text to be displayed on the page. e.g. $0 for the first year, then $195
+        description: 'The text to be displayed on the page. e.g. $0 for the first year, then $195'
     description: This holds the fee information.
   ContentGroup:
     type: object
@@ -303,7 +302,7 @@ definitions:
       text:
         type: string
         description: The disclosure text to be displayed.
-    description: Holds the card content disclosure.
+    description: Holds the Card content disclosure.
   DisplayText:
     type: object
     properties:
