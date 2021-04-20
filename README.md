@@ -166,12 +166,12 @@ Please replace the example values with actual values before running the sample.
 developer.portal.sdk=jks_file_example.jks           // SDK keystore
 keystore.jks=jks                                    // Java keystore format type
 oauth.keystore.trust.stream=trust_file_example.jks  // Path to trust store file
-oauth.keystore.load.trust.stream=trust user example // Keystore username
-oauth.keystore.passphrase.property=password example // Keystore password
-oauth.keystore.alias.property=alias example         // Alias (or name) under which the key is stored in the keystore
+oauth.keystore.load.trust.stream=trust_user_example // Keystore username
+oauth.keystore.passphrase.property=password_example // Keystore password
+oauth.keystore.alias.property=alias_example         // Alias (or name) under which the key is stored in the keystore
 oauth.offers.api.endpoint=https://example.americanexpress.com   // Default Offers API endpoint
-oauth.api.key=auth key example                      // OAuth Client ID/Key
-oauth.api.secret=secret example                     // OAuth Secret Value
+oauth.api.key=auth_key_example                      // OAuth Client ID/Key
+oauth.api.secret=secret_example                     // OAuth Secret 
 proxy.protocol=http                                 // Protocol Client uses to connect to proxy/load balancer
 proxy.host=proxy.example.com                        // Proxy host
 proxy.port=8080                                     // Proxy port
